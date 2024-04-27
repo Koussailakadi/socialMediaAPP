@@ -1,65 +1,70 @@
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
+import { MaterialCommunityIcons } from 'react-native-vector-icons';
+import Home from './screens/Home';
+import Profile from './screens/Profile';
+import Photo from './screens/Photo';
+import About from './screens/About';
 
-const Drawer = createDrawerNavigator();
+
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const Home =()=>{
+
+const MyStack =() =>{
   return(
-    <View style={styles.container}>
-      <Text>Home!</Text>
-    </View>
-  )
-};
-const Profile =()=>{
-  return(
-    <View style={styles.container}>
-      <Text>Profile!</Text>
-    </View>
-  )
-};
-const Photos = ()=>{
-  return(
-    <View style={styles.container}>
-      <Text>Photos!</Text>
-    </View>
-  )
-};
-const MyDrawer = ()=> {
-  return(
-      <Drawer.Navigator 
-        screenOptions={
-          {drawerStyle:{width:250},
-          }
+    <Stack.Navigator
+      screenOptions={{
+          headerStyle: {backgroundColor: 'lightblue',height:100},
+          headerTintColor: 'white',
+          headerTitleStyle: {fontWeight: 'bold'},
         }
-        >
-        <Drawer.Screen name="Profile" component= {Profile}/>
-        <Drawer.Screen name="Photos" component={Photos}/>
-      </Drawer.Navigator>
+      } 
+    >
+      <Stack.Screen name="Home" component={Home} options={{}}/>
+      <Stack.Screen name="Profile" component={Profile} options={{}}/>
+      <Stack.Screen name="Photo" component={Photo} options={{}}/>
+    </Stack.Navigator>
   )
-}; 
+}
+
 const MyTabs =()=>{
   return(
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          headerStyle: { backgroundColor: 'lightblue' },
+          headerStyle: { backgroundColor: 'lightblue', height:100},
           headerTintColor: 'white',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerTitleStyle: {fontWeight: 'bold'},
         }}
       > 
-        <Tab.Screen name="Home" component={Home}
+        <Tab.Screen 
+        name="MyStack" 
+        component={MyStack} 
+        options={{
+          headerShown:false,
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) =>{ return (
+            <MaterialCommunityIcons name="home" color={color} size={size} />
+          )}
+        }}
         />
-        <Tab.Screen name="Drawer" component={MyDrawer} options={{headerShown: true, lazy:true}}/>
+        <Tab.Screen 
+          name="About" 
+          component={About} 
+          options={
+            {headerShown: true,
+            lazy:true,
+            tabBarIcon:({color, size})=>(
+              <MaterialCommunityIcons name="account" color={color} size={size}/>
+            )
+          }}
+          />
       </Tab.Navigator>
     </NavigationContainer>
   )
 };
-
 
 export default function App() {
   return (
@@ -67,11 +72,3 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
