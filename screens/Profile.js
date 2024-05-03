@@ -14,16 +14,13 @@ export default Profile =({navigation , route})=>{
             <View>
               <Image 
                 source = {{uri : item.img}}
-                style = {{
-                  width:150, 
-                  height:150, 
-                  borderRadius:100, 
-                  borderWidth:5,
-                  borderColor:'white',
-                  overflow:'hidden'
-                }}
+                style = {GlobalStyle.imageProfile}
                 />
-              <Text style={{fontSize:20, textAlign:'center', color:'white'}}>{item.name}</Text>
+                <Text 
+                    style={{fontSize:20, textAlign:'center', color:'white'}}
+                    >
+                    {item.name}
+                </Text>
             </View>
           )
         },
@@ -50,32 +47,18 @@ export default Profile =({navigation , route})=>{
                 style={{alignItems:'center',marginBottom:10}}
                 activeOpacity={0.7}
                 key={subItem.id}
-            >
+                >
                 <ImageBackground 
                     source={{uri:subItem.url}}
-                    style={{
-                    justifyContent:'flex-end',
-                    alignContent:'flex-end',
-                    width:'100%',
-                    height:350,
-                    }}
+                    style={GlobalStyle.imageBackGroundProfile}
                     resizeMode="cover"
                     >
-                    <Text 
-                        style={{
-                            color:'white',
-                            backgroundColor:'rgba(0, 0, 0, 0.5)',
-                            padding: 10,fontSize:20 ,textAlign:'center'
-                        }}
-                        >
-                        {subItem.title}
-                    </Text>
+                    <Text style={GlobalStyle.textProfile}>{subItem.title}</Text>
                 </ImageBackground>
             </TouchableOpacity>
             )
         )
         }
-        
     </ScrollView>
       
     )

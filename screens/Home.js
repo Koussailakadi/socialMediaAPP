@@ -1,7 +1,34 @@
-import { TouchableOpacity, Text, View , FlatList, ImageBackground} from 'react-native';
+import { useLayoutEffect, useState } from 'react';
+import {View, TouchableOpacity, Pressable, Text, FlatList, ImageBackground} from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+// Custom imports:
+import ModalCustom from '../components/ModalCustom';
+import GlobalStyle from '../styles/style/GlobalStyle';
 import Data from '../data/data';
 
 export default Home =({navigation})=>{
+    const [pressed, setPressed] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+
+    useLayoutEffect(()=>{
+        navigation.setOptions(
+            {
+                headerRight:()=>{
+                    return (
+                        <Pressable
+                            onPress={()=>(setModalVisible(true))}
+                            onPressIn={()=>setPressed(true)}
+                            onPressOut={()=>setPressed(false)}
+                            style={{marginRight:15}}
+                        >
+                            <MaterialCommunityIcons name="filter-menu" size={24} color={pressed ? 'red':'white'}/>
+                        </Pressable>
+                    )
+                }            
+            }
+        ), 
+        [navigation]}
+    );
     const userData = Data;
     const renderItem = ({item})=>{
       return(
@@ -12,35 +39,29 @@ export default Home =({navigation})=>{
         >
             <ImageBackground 
                 source={{uri:item.img}}
-                style={{
-                    justifyContent:'flex-end',
-                    alignContent:'flex-end',
-                    width:'100%',
-                    height: 350,
-                    overflow: 'hidden',
-                    backgroundColor:'red',
-                    alignSelf:'center',
-                    }}
-                    resizeMode="cover"
-                >
-                <Text style={{
-                    backgroundColor:'rgba(0 , 0, 0, 0.5)',
-                    fontSize:20, 
-                    textAlign:'center', 
-                    color:'white'}}
-                    >
+                style={GlobalStyle.imageBackGroundHome}
+                resizeMode="cover"
+            >
+                <Text style={GlobalStyle.textHome}>
                     {item.name} prefers {item.category}
-                 </Text>
+                </Text>
             </ImageBackground>
         </TouchableOpacity>
       );
     }
     return(  
-        <FlatList
-            data={userData}
-            renderItem={renderItem}
-            keyExtractor={(item)=>item.id}
-            contentContainerStyle={{alignItems:'stretch'}}
-        />
+        <View>
+            <ModalCustom
+                modalVisible={modalVisible}
+                handleModalVisible={setModalVisible}
+            />
+            <FlatList
+                data={userData}
+                renderItem={renderItem}
+                keyExtractor={(item)=>item.id}
+                contentContainerStyle={{alignItems:'stretch'}}
+            />  
+        </View>
+        
     )
   };
