@@ -24,6 +24,7 @@ export default Profile =({navigation , route})=>{
             </View>
           )
         },
+        headerTitleAlign: 'center',
         headerStyle: {backgroundColor: item.favColor, height:270},
         headerLeft:() => (
             <ButtonCustom 
@@ -39,8 +40,8 @@ export default Profile =({navigation , route})=>{
     })
     return(
       <ScrollView>
-        <Text style={{fontSize:20, textAlign:'left',fontWeight:'bold'}}>Bio</Text>
-        <Text style={{fontSize:15, textAlign:'left'}}>{item.desc}</Text>
+        <Text style={{fontSize:20, padding:10, textAlign:'left',fontWeight:'bold'}}>Bio</Text>
+        <Text style={{fontSize:15, padding:10, textAlign:'left'}}>{item.desc}</Text>
         {item.photos.map((subItem) => (
             <TouchableOpacity
                 onPress={()=>navigation.navigate('Photo',{item:subItem})}

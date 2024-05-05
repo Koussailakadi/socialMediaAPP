@@ -42,7 +42,7 @@ export default Photo = ({navigation, route}) =>{
             height: 350,
           }}
         />
-        <Text style={{fontSize:25,fontWeight:'bold',marginBottom:10, marginLeft:5}}>Description</Text>
+        <Text style={{fontSize:25,fontWeight:'bold',marginBottom:10, marginLeft:15}}>Description</Text>
         <TextCustom>{item.photoDesc}</TextCustom>
         <TextCustom>{item.photoDesc}</TextCustom>
         <TextCustom>{item.photoDesc}</TextCustom>
