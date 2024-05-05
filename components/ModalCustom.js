@@ -1,5 +1,5 @@
 import { useState, useEffect } from'react';
-import { Modal, StyleSheet, Text, View, Switch } from 'react-native'
+import { Modal, StyleSheet, Text, View, Alert} from 'react-native'
 import { SimpleLineIcons } from '@expo/vector-icons';
 import SwitchCustom from '../components/SwitchCustom';
 import { useSelector, useDispatch  } from'react-redux';
@@ -19,6 +19,7 @@ const ModalCustom = ({modalVisible, handleModalVisible}) => {
             })
         );
     }
+
     useEffect(() => {
         // Vérifiez si selectedCategory a changé avant de déclencher la mise à jour dans le store Redux
         if (selectedCategory !== category) {

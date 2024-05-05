@@ -29,7 +29,7 @@ export default GlobalStyle = StyleSheet.create({
       borderRadius:100, 
       borderWidth:5,
       borderColor:'white',
-      overflow:'hidden'
+      overflow:'hidden',
     },
     imageBackGroundProfile:{
       justifyContent:'flex-end',
