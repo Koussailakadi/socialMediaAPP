@@ -1,56 +1,73 @@
-import { useState } from'react';
+import { useState, useEffect } from'react';
 import { Modal, StyleSheet, Text, View, Switch } from 'react-native'
 import { SimpleLineIcons } from '@expo/vector-icons';
 import SwitchCustom from '../components/SwitchCustom';
+import { useSelector, useDispatch  } from'react-redux';
+import { setCategory } from '../redux/reducers/AppReducer';
 
 
-const ModalCustom = ({modalVisible, handleModalVisible}) => {   
-    const [isEnabledAnimal, setIsEnabledAnimal] = useState(false);
-    const [isEnabledCars, setIsEnabledCars] = useState(false);
-    const [isEnabledTravel, setIsEnabledTravel] = useState(false);
+const ModalCustom = ({modalVisible, handleModalVisible}) => {  
+    const category = useSelector((state) => state.filters.category);
+    const dispatch = useDispatch();
+
+    const [selectedCategory, setSelectedCategory] = useState(category);
+
+    const updateCategory = (categoryName, value) => {
+        setSelectedCategory((prevState)=> ({
+            ...prevState, 
+            [categoryName]: value
+            })
+        );
+    }
+    useEffect(() => {
+        // Vérifiez si selectedCategory a changé avant de déclencher la mise à jour dans le store Redux
+        if (selectedCategory !== category) {
+          dispatch(setCategory(selectedCategory));
+        }
+      }, [selectedCategory, category, dispatch]);
+
 
   return (
     <Modal 
-            visible = {modalVisible}
-            style={{backgroundColor:'green'}}
-            transparent = {true}
-            onRequestClose={() => {
-                Alert.alert('Modal has been closed.');
-                handleModalVisible(!modalVisible);
-            }}
-            >
-            <View style={styles.modalView}>
-                <View style={styles.header}>
-                    <Text style={{fontSize:25, fontWeight:'bold'}}>Settings</Text>
-                    <SimpleLineIcons 
+        visible = {modalVisible}
+        style={{backgroundColor:'green'}}
+        transparent = {true}
+        onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            handleModalVisible(!modalVisible);
+        }}
+        >
+        <View style={styles.modalView}>
+            <View style={styles.header}>
+                <Text style={{fontSize:25, fontWeight:'bold'}}>Settings</Text>
+                <SimpleLineIcons 
                     name="close" 
                     size={24} 
                     color={modalVisible ? "black" : 'red'} 
                     onPress={()=>handleModalVisible(false)}
-                />
-                </View>
-                <View style={styles.body}>
-                    <Text style={styles.bodyText}>
-                        Filter by category ! at least on category shall be selected.
-                    </Text>
-                    <SwitchCustom 
-                        switchName="Animals" 
-                        value={isEnabledAnimal} 
-                        onValueChange={setIsEnabledAnimal}
-                    />
-                    <SwitchCustom 
-                        switchName="Cars" 
-                        value={isEnabledCars} 
-                        onValueChange={setIsEnabledCars}
-                    />
-                    <SwitchCustom 
-                        switchName="Travel" 
-                        value={isEnabledTravel} 
-                        onValueChange={setIsEnabledTravel}
-                    />
-                    
-                </View>
+            />
             </View>
+            <View style={styles.body}>
+                <Text style={styles.bodyText}>
+                    Filter by category ! at least on category shall be selected.
+                </Text>
+                <SwitchCustom 
+                    switchName="Animals" 
+                    value={category.animals} 
+                    onValueChange={(value)=>updateCategory("animals", value)}
+                />
+                <SwitchCustom 
+                    switchName="Cars" 
+                    value={category.cars} 
+                    onValueChange={(value)=>updateCategory("cars", value)}
+                />
+                <SwitchCustom 
+                    switchName="Travel" 
+                    value={category.travel} 
+                    onValueChange={(value)=>updateCategory("travel", value)}
+                />
+            </View>
+        </View>
     </Modal>
   )
 }

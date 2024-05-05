@@ -7,6 +7,12 @@ import Profile from './screens/Profile';
 import Photo from './screens/Photo';
 import About from './screens/About';
 
+//redux store 
+import store  from './redux/Store';
+import { Provider } from'react-redux';
+
+
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -66,9 +72,13 @@ const MyTabs =()=>{
   )
 };
 
+
+
 export default function App() {
   return (
-    <MyTabs/>
+    <Provider store={store}>
+      <MyTabs/>
+    </Provider>
   );
 }
 

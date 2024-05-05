@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 // Custom imports:
 import ModalCustom from '../components/ModalCustom';
 import GlobalStyle from '../styles/style/GlobalStyle';
-import Data from '../data/data';
+import { useSelector } from'react-redux';
 
 export default Home =({navigation})=>{
     const [pressed, setPressed] = useState(false);
@@ -29,7 +29,7 @@ export default Home =({navigation})=>{
         ), 
         [navigation]}
     );
-    const userData = Data;
+    const userData = useSelector((state) => state.filters.selectedData);
     const renderItem = ({item})=>{
       return(
         <TouchableOpacity
@@ -49,6 +49,17 @@ export default Home =({navigation})=>{
         </TouchableOpacity>
       );
     }
+    if (!userData.length){
+        return(
+            <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+                <ModalCustom
+                modalVisible={modalVisible}
+                handleModalVisible={setModalVisible}
+                />
+                <Text style={{fontSize:20, fontWeight:'bold'}}>No Data Found</Text>
+            </View>
+        )
+    }
     return(  
         <View>
             <ModalCustom
@@ -62,6 +73,5 @@ export default Home =({navigation})=>{
                 contentContainerStyle={{alignItems:'stretch'}}
             />  
         </View>
-        
     )
   };
