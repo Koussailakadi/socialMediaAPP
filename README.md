@@ -22,13 +22,13 @@ Voici un aperçu visuel des différents écrans de l'application :
 
 Voici un aperçu visuel des différents écrans de l'application :
 
-| Catalogue | Panier |
+| home | profile |
 |:---------:|:------:|
-| ![Catalogue](images/catalogue.png) | ![Panier](images/panier.png) |
+| ![home](images/home.png) | ![profile](images/profile.png) |
 
-| Mes Cours | Mes Achats |
+| photos | filtre |
 |:---------:|:----------:|
-| ![Mes Cours](images/mes_cours.png) | ![Mes Achats](images/mes_achats.png) |
+| ![photos](images/photos.png) | ![filtre](images/filter.png) |
 
 
 ## Installation et Utilisation
