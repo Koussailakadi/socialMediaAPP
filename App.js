@@ -40,7 +40,7 @@ const MyTabs =()=>{
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          headerStyle: { backgroundColor: 'lightblue', height:100},
+          headerStyle: { backgroundColor:'lightblue', height:100 },
           headerTintColor: 'white',
           headerTitleStyle: {fontWeight: 'bold'},
         }}
@@ -52,7 +52,7 @@ const MyTabs =()=>{
           headerShown:false,
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) =>{ return (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
+            <MaterialCommunityIcons name="home" color={color} size={size}/>
           )}
         }}
         />
