@@ -18,10 +18,6 @@ L'application propose les fonctionnalités suivantes :
 
 Voici un aperçu visuel des différents écrans de l'application :
 
-## Captures d'écran
-
-Voici un aperçu visuel des différents écrans de l'application :
-
 | home | profile |
 |:---------:|:------:|
 | ![home](images/home.png) | ![profile](images/profile.png) |
